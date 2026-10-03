@@ -1,0 +1,83 @@
+// Copyright 2021 Signal Messenger, LLC
+// SPDX-License-Identifier: AGPL-3.0-only
+
+import type { JSX } from 'react';
+
+import type { LocalizerType } from '../types/Util.std.ts';
+import { useEscapeHandling } from '../hooks/useEscapeHandling.dom.ts';
+import { tw } from '../axo/tw.dom.tsx';
+import {
+  FUMI_ACKNOWLEDGMENTS_URL,
+  FUMI_LICENSES_URL,
+  FUMI_PROJECT_URL,
+  getFumiAboutVersion,
+} from '../util/fumiAbout.std.ts';
+
+export type AboutProps = Readonly<{
+  closeAbout: () => unknown;
+  appEnv: string;
+  arch: string;
+  platform: string;
+  i18n: LocalizerType;
+  version: string;
+}>;
+
+export function About({
+  closeAbout,
+  appEnv,
+  arch,
+  platform,
+  i18n,
+  version,
+}: AboutProps): JSX.Element {
+  useEscapeHandling(closeAbout);
+
+  let env: string;
+
+  if (platform === 'darwin') {
+    if (arch === 'arm64') {
+      env = i18n('icu:About__AppEnvironment--AppleSilicon', { appEnv });
+    } else {
+      env = i18n('icu:About__AppEnvironment--AppleIntel', { appEnv });
+    }
+  } else {
+    env = i18n('icu:About__AppEnvironment', { appEnv });
+  }
+
+  return (
+    <div className="About">
+      <div className="module-splash-screen">
+        <div className="module-splash-screen__logo module-splash-screen__logo--128" />
+
+        <h1 className="About__Title">
+          {i18n('icu:signalDesktop')} {getFumiAboutVersion(version)}
+        </h1>
+        <div className="About__Body environment">{env}</div>
+        <br />
+        <div>
+          <a href={FUMI_PROJECT_URL}>{i18n('icu:Fumi__about-project')}</a>
+        </div>
+        <br />
+        <div>
+          <a href={FUMI_LICENSES_URL}>{i18n('icu:Fumi__about-license')}</a>
+        </div>
+        <div>
+          <a className="acknowledgments" href={FUMI_ACKNOWLEDGMENTS_URL}>
+            {i18n('icu:softwareAcknowledgments')}
+          </a>
+        </div>
+        <div>
+          <a className="privacy" href="https://signal.org/legal">
+            {i18n('icu:Fumi__about-privacy-policy')}
+          </a>
+        </div>
+        <div className={tw('text-secondary')}>
+          {i18n('icu:signalNonProfit')}
+        </div>
+        <div className={tw('whitespace-pre-line text-secondary')}>
+          {i18n('icu:Fumi__about-upstream-copyright')}
+        </div>
+      </div>
+    </div>
+  );
+}

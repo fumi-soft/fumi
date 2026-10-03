@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1254" height="1254" viewBox="0 0 1254 1254">
+  <defs>
+    <linearGradient id="bg" x1="8%" y1="2%" x2="92%" y2="98%">
+      <stop offset="0" stop-color="#c9a6f9"/>
+      <stop offset="20%" stop-color="#985cf7"/>
+      <stop offset="46%" stop-color="#6e2bf2"/>
+      <stop offset="72%" stop-color="#4312b7"/>
+      <stop offset="100%" stop-color="#26005f"/>
+    </linearGradient>
+    <radialGradient id="glowTop" cx="35%" cy="7%" r="72%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.42"/>
+      <stop offset="24%" stop-color="#d6b2ff" stop-opacity="0.22"/>
+      <stop offset="75%" stop-color="#7130ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowMid" cx="44%" cy="45%" r="55%">
+      <stop offset="0" stop-color="#a86bff" stop-opacity="0.26"/>
+      <stop offset="100%" stop-color="#5720db" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="mark" x1="8%" y1="0%" x2="95%" y2="100%">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#f4eaff"/>
+      <stop offset="100%" stop-color="#d8c3ff"/>
+    </linearGradient>
+    <radialGradient id="markGlow" cx="22%" cy="10%" r="95%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.32"/>
+      <stop offset="55%" stop-color="#ffffff" stop-opacity="0.03"/>
+      <stop offset="100%" stop-color="#8c5cff" stop-opacity="0.08"/>
+    </radialGradient>
+    <clipPath id="appClip">
+      <rect x="54" y="53" width="1147" height="1147" rx="177" ry="177"/>
+    </clipPath>
+    <clipPath id="fClip">
+      <path d="M545 405 C512 405 495 422 495 455 L495 930 L618 930 L618 711 C618 704 622 700 630 700 L815 700 C823 700 827 696 827 688 L827 613 C827 604 823 600 814 600 L629 600 C622 600 618 596 618 588 L618 520 C618 512 622 508 630 508 L852 508 C858 508 861 505 861 499 L861 414 C861 408 858 405 852 405 Z"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#appClip)">
+    <rect x="54" y="53" width="1147" height="1147" fill="url(#bg)"/>
+    <rect x="54" y="53" width="1147" height="1147" fill="url(#glowTop)"/>
+    <rect x="54" y="53" width="1147" height="1147" fill="url(#glowMid)"/>
+  </g>
+
+  <path fill="url(#mark)" d="
+    M496 264 L884 264
+    C941 264 980 303 980 359 L980 665
+    C980 744 957 794 913 838
+    C870 880 817 900 748 900
+    L500 900 L320 991
+    C310 999 299 1001 291 996
+    C285 992 282 987 282 980
+    L282 466 C282 436 293 413 315 395
+    L414 300 C437 277 465 264 496 264 Z"/>
+  <path fill="url(#markGlow)" d="
+    M496 264 L884 264
+    C941 264 980 303 980 359 L980 665
+    C980 744 957 794 913 838
+    C870 880 817 900 748 900
+    L500 900 L320 991
+    C310 999 299 1001 291 996
+    C285 992 282 987 282 980
+    L282 466 C282 436 293 413 315 395
+    L414 300 C437 277 465 264 496 264 Z"/>
+
+  <!-- Cut the F out of the white mark by repainting the exact background through an F-shaped clip. -->
+  <g clip-path="url(#fClip)">
+    <rect x="54" y="53" width="1147" height="1147" fill="url(#bg)"/>
+    <rect x="54" y="53" width="1147" height="1147" fill="url(#glowTop)"/>
+    <rect x="54" y="53" width="1147" height="1147" fill="url(#glowMid)"/>
+  </g>
+</svg>

@@ -1,0 +1,13 @@
+# Copyright 2021 Signal Messenger, LLC
+# SPDX-License-Identifier: AGPL-3.0-only
+
+blank_issues_enabled: false
+
+contact_links:
+  - name: "📖 Fumi documentation"
+    url: https://github.com/fumi-soft/fumi/blob/main/README.md
+    about: "Read about Fumi's features, setup, downloads, and manual updates."
+
+  - name: "🛠️ Contributing to Fumi"
+    url: https://github.com/fumi-soft/fumi/blob/main/CONTRIBUTING.md
+    about: "Find source-build instructions and guidance for reviewing code or proposing changes."

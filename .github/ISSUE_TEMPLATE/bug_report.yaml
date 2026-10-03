@@ -1,0 +1,87 @@
+name: "🛠️ Bug report"
+description: Report a technical issue with Fumi for macOS on Apple Silicon.
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe the issue you encountered with Fumi.
+        Include the steps needed to reproduce it and the behavior you observed.
+
+  - type: checkboxes
+    id: existing-issues
+    attributes:
+      label: Existing issues
+      description: |
+        Search [open and closed Fumi issues](https://github.com/fumi-soft/fumi/issues?q=is%3Aissue) before submitting a new report.
+      options:
+        - label: I have searched existing Fumi issues for duplicates.
+          required: true
+
+  - type: input
+    id: fumi-version
+    attributes:
+      label: Fumi version
+      description: |
+        Include the full version shown in About.
+        For a source build, add the commit hash if known.
+      placeholder: "Fumi 0.9.0 (Signal Desktop 8.28.0)"
+    validations:
+      required: true
+
+  - type: input
+    id: macos-version
+    attributes:
+      label: macOS version
+      description: Include the macOS version shown in About This Mac.
+      placeholder: "macOS 15.6"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description-of-bug
+    attributes:
+      label: Description
+      description: Describe the problem and what you were doing when it occurred.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to reproduce
+      description: List the steps that lead to the problem.
+      placeholder: |
+        1. Open Fumi.
+        2. ...
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-result
+    attributes:
+      label: Expected result
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-result
+    attributes:
+      label: Actual result
+      description: What happened instead? Include any error message displayed by the application.
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-information
+    attributes:
+      label: Additional information
+      description: |
+        For visual issues, you can attach screenshots.
+        For build or test failures, include the command you ran and the relevant error output.
+        For device-linking or messaging issues, include the mobile OS and Signal app version if relevant.
+      placeholder: You can drag and drop screenshots into this field.
+    validations:
+      required: false
