@@ -1,0 +1,26 @@
+// Copyright 2026 Signal Messenger, LLC
+// SPDX-License-Identifier: AGPL-3.0-only
+
+.StandaloneRegistration--SignalLogo {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--axo-color-label-accent);
+  font-size: 28px;
+  font-weight: 600;
+
+  inset-inline-start: 32px;
+  top: 64px;
+  height: 32px;
+
+  img {
+    height: 100%;
+  }
+
+  @media screen and (max-height: 800px) and (max-width: 900px) {
+    top: 32px;
+    height: 16px;
+    font-size: 14px;
+  }
+}
