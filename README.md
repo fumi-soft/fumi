@@ -61,15 +61,17 @@ At startup, Fumi removes its own `logs` directory while retaining configuration,
 
 ## Application isolation
 
-### Independent profile and Keychain context
+### Use Fumi alongside official Signal Desktop
 
-Fumi has its own application identity, macOS Keychain protection context, and data directory:
+Fumi and official Signal Desktop can be installed and used on the same Mac. Installing Fumi does not replace Signal Desktop or change its existing local data.
+
+Fumi uses its own application identity, macOS Keychain protection context, and data directory:
 
 ```text
 ~/Library/Application Support/Fumi
 ```
 
-A first installation starts with a new Fumi profile and device setup. Official Signal’s profile remains separate and untouched.
+Complete Fumi’s device setup separately on first launch. Fumi does not import Signal Desktop’s existing local data.
 
 Subsequent Fumi updates preserve the existing Fumi profile, message database, and password-lock data.
 
@@ -81,11 +83,15 @@ The verification page runs with Node integration disabled, permissions denied, a
 
 ## Review the implementation
 
-Start with these files to examine Fumi’s core security and privacy changes:
+This file map lists the main entry points for Fumi-specific changes, not every modified file:
 
 - [Password-based key protection](https://github.com/fumi-soft/fumi/blob/main/app/password_lock.node.ts) — scrypt key derivation, AES-256-GCM wrapping and unwrapping, and password-lock record validation.
-- [Startup, database access, and shutdown](https://github.com/fumi-soft/fumi/blob/main/app/main.main.ts) — password setup and unlock before database initialization, database-key retrieval, and the Lock/quit lifecycle.
+- [Startup, database access, and shutdown](https://github.com/fumi-soft/fumi/blob/main/app/main.main.ts) — `showPasswordLockWindow`, `getSQLKey`, and `requestShutdown` cover the password gate, database-key access, and termination; `readyForUpdates` and `forceUpdate` keep the official updater inactive and provide manual release-page navigation.
 - [Calling-service barriers](https://github.com/fumi-soft/fumi/blob/main/ts/services/calling.preload.ts) — disabled calling initialization, incoming signaling, call setup, and call-link operations.
+- [Capture permission handling](https://github.com/fumi-soft/fumi/blob/main/app/permissions.std.ts) and [permission settings IPC](https://github.com/fumi-soft/fumi/blob/main/ts/main/settingsChannel.main.ts) — fixed audio/video denial, false permission getters, and no-op setters.
+- [Shared diagnostic logger](https://github.com/fumi-soft/fumi/blob/main/ts/logging/log.std.ts), [logging initialization and purge](https://github.com/fumi-soft/fumi/blob/main/ts/logging/main_process_logging.main.ts), and [crash-report gates](https://github.com/fumi-soft/fumi/blob/main/app/crashReports.main.ts) — disabled diagnostic output and reporting, with deletion limited to Fumi’s logs.
+- [Isolated CAPTCHA window](https://github.com/fumi-soft/fumi/blob/main/app/captcha_window.main.ts) — session isolation, navigation and completion handling, and window lifecycle.
+- [Fumi build entry point](https://github.com/fumi-soft/fumi/blob/main/scripts/build-fumi.mjs) — production generation, arm64 DMG packaging, and ad-hoc signing and verification.
 
 ## Getting started
 
@@ -107,11 +113,27 @@ Automatic language selection uses Japanese when the resolved system language is 
 
 Download the macOS Apple Silicon DMG from [Fumi Releases](https://github.com/fumi-soft/fumi/releases).
 
+Fumi has its own display version; DMG filenames use the underlying Signal Desktop version. Release titles show both.
+
 Source code is available in the [Fumi repository](https://github.com/fumi-soft/fumi); you can build the application using the instructions below.
 
 Fumi updates are manual. Install a newer build by replacing the application bundle while keeping the existing Fumi profile and password-lock data.
 
 The official Signal updater is disabled. Build-expiration checks remain active.
+
+### Update policy
+
+- The normal target is to publish a Fumi update within two weeks of each stable Signal Desktop release.
+- For urgent updates, such as critical security fixes affecting Fumi, the target is publication within a few days of the upstream release.
+- Fumi-specific fixes may be released as needed without waiting for a new Signal Desktop release.
+
+## Roadmap
+
+These are planned directions, not guaranteed features. Scope and priorities may change based on user feedback.
+
+- **SOCKS proxy support:** Connect through a user-configured proxy.
+- **Automatic Lock after inactivity:** Quit Fumi after a specified period without user activity, requiring the password again on the next launch.
+- **Temporary-use mode:** An optional mode that deletes Fumi’s local data on this Mac when the session ends.
 
 ## Build from source
 
